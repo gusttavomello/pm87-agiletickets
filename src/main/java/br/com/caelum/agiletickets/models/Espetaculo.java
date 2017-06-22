@@ -112,7 +112,7 @@ public class Espetaculo {
 				int qtdSemanas = Weeks.weeksBetween(inicio, fim).getWeeks();
 				for(int i=0; i <= qtdSemanas; i++) {
 					Sessao sessao = new Sessao(this, inicio.plusWeeks(i).toDateTime(horario), 0, 0, 0, BigDecimal.valueOf(0.0));
-					this.sessoes.add(sessao);
+					//this.sessoes.add(sessao);
 				}
 			} 
 		}
