@@ -2,6 +2,7 @@ package br.com.caelum.agiletickets.models;
 
 import static com.google.common.collect.Lists.newArrayList;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,8 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.Weeks;
 
 @Entity
 public class Espetaculo {
@@ -98,7 +101,23 @@ public class Espetaculo {
      */
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		// ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
-		return null;
+		if (inicio.isBefore(fim) || inicio.equals(fim)) {
+			if (periodicidade.equals(Periodicidade.DIARIA)){
+				int qtdDias = Days.daysBetween(inicio, fim).getDays();
+				for(int i=0; i <= qtdDias; i++){
+					Sessao sessao = new Sessao(this, inicio.plusDays(i).toDateTime(horario), 0, 0, 0, BigDecimal.valueOf(0.0));
+					this.sessoes.add(sessao);
+				}
+			} else if(periodicidade.equals(Periodicidade.SEMANAL)) {
+				int qtdSemanas = Weeks.weeksBetween(inicio, fim).getWeeks();
+				for(int i=0; i <= qtdSemanas; i++) {
+					Sessao sessao = new Sessao(this, inicio.plusWeeks(i).toDateTime(horario), 0, 0, 0, BigDecimal.valueOf(0.0));
+					this.sessoes.add(sessao);
+				}
+			} 
+		}
+		
+		return this.sessoes;
 	}
 	
 	public boolean Vagas(int qtd, int min)

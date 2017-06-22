@@ -33,6 +33,20 @@ public class Sessao {
 	private Integer ingressosReservados = 0;
 
 	private BigDecimal preco;
+	
+	public Sessao(){};
+
+	public Sessao(Espetaculo espetaculo, DateTime inicio, Integer duracaoEmMinutos,
+			Integer totalIngressos, Integer ingressosReservados,
+			BigDecimal preco) {
+		super();
+		this.espetaculo = espetaculo;
+		this.inicio = inicio;
+		this.duracaoEmMinutos = duracaoEmMinutos;
+		this.totalIngressos = totalIngressos;
+		this.ingressosReservados = ingressosReservados;
+		this.preco = preco;
+	}
 
 	public Long getId() {
 		return id;
